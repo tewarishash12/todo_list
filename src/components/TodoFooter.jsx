@@ -1,27 +1,29 @@
 import React from 'react'
 import { colors } from './Colors'
+// import { useDispatch } from 'react-redux'
 
 function TodoFooter() {
+    // const dispatch = useDispatch();
     return (
         <footer className="flex justify-around items-start p-4 border-t bg-white w-full">
-            {/* Actions Section */}
+            
             <div className="flex flex-col space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Actions</h1>
-                <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
+                <button
+                // onClick={()=>}
+                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
                     Mark All Completed
                 </button>
                 <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
-                    Clear Completed
+                    Clear All Marked
                 </button>
             </div>
 
-            {/* Remaining Todos Section */}
             <div className="flex flex-col items-start space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Remaining Todos</h1>
                 <p className="text-gray-700">1 item left</p>
             </div>
 
-            {/* Filter by Status Section */}
             <div className="flex flex-col items-start space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Filter by Status</h1>
                 <button className="text-gray-600 hover:text-gray-800 no-underline">All</button>
@@ -29,7 +31,6 @@ function TodoFooter() {
                 <button className="text-gray-600 hover:text-gray-800 no-underline">Completed</button>
             </div>
 
-            {/* Filter by Color Section */}
             <div className="flex flex-col items-start space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Filter by Color</h1>
                 <div className="flex items-start flex-col">
