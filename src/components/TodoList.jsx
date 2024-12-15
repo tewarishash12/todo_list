@@ -21,11 +21,10 @@ export default function TodoList() {
                         key={todo.id}
                         className="flex items-center justify-between border-b py-2"
                     >
-                        {/* Checkbox */}
                         <div className="flex items-center space-x-2">
                             <input
                                 type="checkbox"
-                                className="w-5 h-5 text-green-500 focus:ring-0 focus:ring-offset-0 rounded-full"
+                                className="text-green-500 focus:ring-0 focus:ring-offset-0 border-2 border-gray-400 checked:bg-white appearance-none h-5 w-5 rounded-full  relative checked:before:content-['✔'] checked:before:absolute  checked:before:left-[3px] checked:before:top-[-2px] checked:before:text-green-400  checked:before:text-sm"
                             />
                             <span className="text-gray-700 text-lg">{todo.task}</span>
                         </div>
@@ -42,7 +41,7 @@ export default function TodoList() {
                                         key={index}
                                         value={color}
                                         className='font-bold'
-                                        style={{color: color.toLowerCase() }}
+                                        style={{ color: color.toLowerCase() }}
                                     >
                                         {color}
                                     </option>
