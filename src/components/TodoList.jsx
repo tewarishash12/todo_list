@@ -1,12 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { remove_todo, toggle_marked } from '../slices/todoSlice'
+import { remove_todo, toggle_marked, update_todo_color } from '../slices/todoSlice'
 import { colors } from './Colors'
 import { FaTimes } from 'react-icons/fa';
 
 export default function TodoList() {
     const todoSet = useSelector(state => state.todo.todoList)
     const filterStatus = useSelector(state => state.filter.status);
+    const filterColors = useSelector(state => state.filter.colors);
     const dispatch = useDispatch();
 
 
@@ -18,10 +19,20 @@ export default function TodoList() {
         dispatch(toggle_marked({id:id}));
     }
 
+    function updateColor(id,color){
+        dispatch(update_todo_color({id,color}))
+    }
+
     const filteredTodos = todoSet.filter((todo) => {
-        if (filterStatus === 'active') return !todo.completed;
-        if (filterStatus === 'completed') return todo.completed; 
-        return true;
+        const statusMatch = 
+            filterStatus === 'all' ||
+            (filterStatus === 'active' && !todo.completed) ||
+            (filterStatus === 'completed' && todo.completed);
+        
+        const colorMatch = 
+            filterColors.length === 0 || filterColors.includes(todo.color); 
+
+        return statusMatch && colorMatch; 
     });
 
     return (
@@ -45,6 +56,9 @@ export default function TodoList() {
                         <div>
                             <select
                                 className="border p-1 rounded text-gray-700 focus:outline-none font-bold"
+                                value={todo.color}
+                                onChange={(e)=>updateColor(todo.id,e.target.value)}
+                                style={{color:todo.color}}
                             >
                                 <option value="" selected disabled hidden>
                                     &nbsp;

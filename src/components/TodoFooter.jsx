@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { colors } from './Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggle_all } from '../slices/todoSlice';
-import {set_filter_status} from "../slices/filterSlice"
+import {set_filter_status, set_filter_color} from "../slices/filterSlice"
 
 function TodoFooter() {
     const todos = useSelector(state => state.todo.todoList)
+    const [selectedColors,setSelectedColors] = useState([]);
 
     const completed = todos.reduce((acc, val) => val.completed ? acc : acc + 1, 0)
 
@@ -17,6 +18,16 @@ function TodoFooter() {
 
     function filterByStatus(status) {
         dispatch(set_filter_status(status));
+    }
+
+    function toggleColorFilter(color){
+        let updatedColors;
+        if(selectedColors.includes(color))
+            updatedColors = selectedColors.filter(c=> c!==color);
+        else
+            updatedColors = [...selectedColors, color]
+        setSelectedColors(updatedColors);
+        dispatch(set_filter_color(updatedColors))
     }
 
     return (
@@ -72,6 +83,8 @@ function TodoFooter() {
                                 type="checkbox"
                                 id={color}
                                 className="cursor-pointer"
+                                checked={selectedColors.includes(color)}
+                                onChange={()=>toggleColorFilter(color)}
                             />
                             <div
                                 className="w-4 h-2 rounded"
