@@ -10,11 +10,11 @@ export default function TodoList() {
 
 
     function deleteBtn(id) {
-        dispatch(remove_todo(id))
+        dispatch(remove_todo(id));
     }
-
-    function toggleTodo(id){
-        dispatch(toggle_marked(id));
+    
+    function toggleTodo(id) {
+        dispatch(toggle_marked({id:id}));
     }
 
     return (
@@ -28,10 +28,10 @@ export default function TodoList() {
                         <div className="flex items-center space-x-2">
                             <input
                                 type="checkbox"
-                                onChange={()=> toggleTodo({id:todo.id})}
+                                onChange={() => toggleTodo(todo.id)}
                                 className="text-green-500 focus:ring-0 focus:ring-offset-0 border-2 border-gray-400 checked:bg-white appearance-none h-5 w-5 rounded-full  relative checked:before:content-['✔'] checked:before:absolute  checked:before:left-[3px] checked:before:top-[-2px] checked:before:text-green-400  checked:before:text-sm"
                             />
-                            <span className={`text-gray-700 text-lg ${todo.complete ? 'line-through' : ''}`}>{todo.task}</span>
+                            <span className={`text-gray-700 text-lg ${todo.completed ? 'line-through' : ''}`}>{todo.task}</span>
                         </div>
 
                         <div>
@@ -54,7 +54,7 @@ export default function TodoList() {
                             </select>
                         </div>
 
-                        <button onClick={() => deleteBtn({ id: todo.id })}>
+                        <button onClick={() => deleteBtn(todo.id)}>
                             <FaTimes size={20} className="text-red-500 hover:text-red-800" />
                         </button>
                     </li>

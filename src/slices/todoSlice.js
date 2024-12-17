@@ -25,16 +25,13 @@ const todoSlice = createSlice({
         add_todo: (state,{type,payload}) => {
             state.todoList.push({id:nanoid(), ...payload})
         },
-        remove_todo: (state,{type,payload}) => {
-            state.todoList = state.todoList.filter((todo)=> todo.id!==payload.id)
+        remove_todo: (state, { payload }) => {
+            state.todoList = state.todoList.filter((todo) => todo.id !== payload);
         },
-        toggle_marked: (state,action) =>{
-            state.todoList = state.todoList.map(todo=>{
-                console.log(todo.id);
-                console.log(action.payload.id)
-                return (todo.id === action.payload.id ? {...todo  , complete: !todo.complete } : todo) 
-            })
-        }
+        toggle_marked: (state, { payload }) => {
+            console.log(payload.id)
+            state.todoList = state.todoList.map((todo) => todo.id === payload.id ? { ...todo, completed: !todo.completed } : todo);
+        },        
     }
 })
 
