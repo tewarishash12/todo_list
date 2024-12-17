@@ -22,14 +22,9 @@ const filterSlice = createSlice({
         ],
     },
     reducers: {
-        mark_as_completed: (state) => {
-            state.todoList = state.todoList.map(todos => ({ ...todos, completed: true }))
-        },
-        clear_all_marked: (state) => {
-            state.todoList = state.todoList.filter(todos => !todos.complete)
-        },
+        
     }
 })
 
-export const { marked_as_completed, clear_all_marked, toggle_marked } = filterSlice.actions;
+export const { marked_as_completed, clear_all_marked } = filterSlice.actions;
 export default filterSlice.reducer;

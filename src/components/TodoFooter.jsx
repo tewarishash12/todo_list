@@ -1,20 +1,32 @@
 import React from 'react'
 import { colors } from './Colors'
-// import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { mark_all_completed, clear_all_completed } from '../slices/todoSlice';
 
 function TodoFooter() {
-    // const dispatch = useDispatch();
+    const todos = useSelector(state => state.todo.todoList)
+    const dispatch = useDispatch();
+
+    function markCompleted(){
+        dispatch(mark_all_completed(todos));
+    }
+
+    function clearCompleted(){
+        dispatch(clear_all_completed(todos));
+    }
     return (
         <footer className="flex justify-around items-start p-4 border-t bg-white w-full">
             
             <div className="flex flex-col space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Actions</h1>
                 <button
-                // onClick={()=>}
+                onClick={()=>markCompleted()}
                 className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
                     Mark All Completed
                 </button>
-                <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
+                <button 
+                onClick={()=>clearCompleted()}
+                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 no-underline">
                     Clear All Marked
                 </button>
             </div>

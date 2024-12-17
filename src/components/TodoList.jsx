@@ -29,6 +29,7 @@ export default function TodoList() {
                             <input
                                 type="checkbox"
                                 onChange={() => toggleTodo(todo.id)}
+                                checked={todo.completed}
                                 className="text-green-500 focus:ring-0 focus:ring-offset-0 border-2 border-gray-400 checked:bg-white appearance-none h-5 w-5 rounded-full  relative checked:before:content-['✔'] checked:before:absolute  checked:before:left-[3px] checked:before:top-[-2px] checked:before:text-green-400  checked:before:text-sm"
                             />
                             <span className={`text-gray-700 text-lg ${todo.completed ? 'line-through' : ''}`}>{todo.task}</span>
