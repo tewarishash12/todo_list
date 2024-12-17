@@ -6,6 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 
 export default function TodoList() {
     const todoSet = useSelector(state => state.todo.todoList)
+    const filterStatus = useSelector(state => state.filter.status);
     const dispatch = useDispatch();
 
 
@@ -17,9 +18,15 @@ export default function TodoList() {
         dispatch(toggle_marked({id:id}));
     }
 
+    const filteredTodos = todoSet.filter((todo) => {
+        if (filterStatus === 'active') return !todo.completed;
+        if (filterStatus === 'completed') return todo.completed; 
+        return true;
+    });
+
     return (
         <ul className="w-full">
-            {todoSet.map((todo) => {
+            {filteredTodos.map((todo) => {
                 return (
                     <li
                         key={todo.id}
@@ -30,7 +37,7 @@ export default function TodoList() {
                                 type="checkbox"
                                 onChange={() => toggleTodo(todo.id)}
                                 checked={todo.completed}
-                                className="text-green-500 focus:ring-0 focus:ring-offset-0 border-2 border-gray-400 checked:bg-white appearance-none h-5 w-5 rounded-full  relative checked:before:content-['✔'] checked:before:absolute  checked:before:left-[3px] checked:before:top-[-2px] checked:before:text-green-400  checked:before:text-sm"
+                                className="text-green-500 focus:ring-0 focus:ring-offset-0 border-2 border-gray-400 checked:bg-white appearance-none h-5 w-5 rounded-full relative checked:before:content-['✔'] checked:before:absolute  checked:before:left-[3px] checked:before:top-[-2px] checked:before:text-green-400  checked:before:text-sm"
                             />
                             <span className={`text-gray-700 text-lg ${todo.completed ? 'line-through' : ''}`}>{todo.task}</span>
                         </div>

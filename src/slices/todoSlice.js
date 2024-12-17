@@ -8,16 +8,19 @@ const todoSlice = createSlice({
                 id: nanoid(),
                 task: 'Buy Milk',
                 completed: false,
+                color: 'red',
             },
             {
                 id: nanoid(),
                 task: 'Buy Veggies',
                 completed: false,
+                color: 'blue',
             },
             {
                 id: nanoid(),
                 task: 'Buy Fruits',
                 completed: false,
+                color: 'green',
             },
         ],
     },
@@ -31,14 +34,11 @@ const todoSlice = createSlice({
         toggle_marked: (state, { payload }) => {
             state.todoList = state.todoList.map((todo) => todo.id === payload.id ? { ...todo, completed: !todo.completed } : todo);
         },
-        mark_all_completed: (state)=>{
-            state.todoList = state.todoList.map(todo=>{ return {...todo, completed:true }})
-        },
-        clear_all_completed: (state)=>{
-            state.todoList = state.todoList.map(todo=>{ return {...todo, completed:false }})
+        toggle_all: (state, {payload})=>{
+            state.todoList = state.todoList.map(todo=>{ return {...todo, completed: payload }})
         }
     }
 })
 
-export const { add_todo, remove_todo, toggle_marked, mark_all_completed, clear_all_completed} = todoSlice.actions;
+export const { add_todo, remove_todo, toggle_marked, toggle_all, filter_all, filter_completed, filter_incompleted} = todoSlice.actions;
 export default todoSlice.reducer
