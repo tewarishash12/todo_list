@@ -12,7 +12,7 @@ export default function TodoList() {
 
 
     function deleteBtn(id) {
-        dispatch(remove_todo(id));
+        dispatch(remove_todo({id:id}));
     }
     
     function toggleTodo(id) {

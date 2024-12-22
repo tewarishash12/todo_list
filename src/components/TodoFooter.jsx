@@ -13,7 +13,7 @@ function TodoFooter() {
     const dispatch = useDispatch();
 
     function toggleAllMarked(value) {
-        dispatch(toggle_all(value));
+        dispatch(toggle_all({completed:value}));
     }
 
     function filterByStatus(status) {
