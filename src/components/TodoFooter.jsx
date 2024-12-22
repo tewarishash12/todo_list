@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { colors } from './Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggle_all } from '../slices/todoSlice';
 import {set_filter_status, set_filter_color} from "../slices/filterSlice"
 
 function TodoFooter() {
-    const [selectedColors,setSelectedColors] = useState([]);
-    const todoCompleted = useSelector(state => state.todo.todoList.filter(todo=> todo.completed))
-
-    const completed = todoCompleted.reduce((acc, val) => val.completed ? acc+1 : acc,0)
+    const todoCompleted = useSelector(state => state.todo.todoList.filter(todo=> !todo.completed))
+    const selectedColors = useSelector(state=> state.filter.colors)
 
     const dispatch = useDispatch();
 
@@ -21,13 +19,7 @@ function TodoFooter() {
     }
 
     function toggleColorFilter(color){
-        let updatedColors;
-        if(selectedColors.includes(color))
-            updatedColors = selectedColors.filter(c=> c!==color);
-        else
-            updatedColors = [...selectedColors, color]
-        setSelectedColors(updatedColors);
-        dispatch(set_filter_color(updatedColors))
+        dispatch(set_filter_color({color:color}))
     }
 
     return (
@@ -49,7 +41,7 @@ function TodoFooter() {
 
             <div className="flex flex-col items-start space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Remaining Todos</h1>
-                <p className="text-gray-700">{completed} task{completed !== 1 ? 's' : ''} completed</p>
+                <p className="text-gray-700">{todoCompleted.length} task{todoCompleted.length !== 1 ? 's' : ''} left</p>
             </div>
 
             <div className="flex flex-col items-start space-y-2">

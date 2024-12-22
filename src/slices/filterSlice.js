@@ -11,7 +11,11 @@ const filterSlice = createSlice({
             state.status = payload.status;
         },
         set_filter_color: (state,{payload}) =>{
-            state.colors = payload;
+            const colorIndex = state.colors.indexOf(payload.color)
+            if (colorIndex === -1) 
+                state.colors.push(payload.color);
+            else
+                state.colors.splice(colorIndex, 1);
         }
     }
 })
