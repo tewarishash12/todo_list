@@ -5,10 +5,10 @@ import { toggle_all } from '../slices/todoSlice';
 import {set_filter_status, set_filter_color} from "../slices/filterSlice"
 
 function TodoFooter() {
-    const todos = useSelector(state => state.todo.todoList)
     const [selectedColors,setSelectedColors] = useState([]);
+    const todoCompleted = useSelector(state => state.todo.todoList.filter(todo=> todo.completed))
 
-    const completed = todos.reduce((acc, val) => val.completed ? acc : acc + 1, 0)
+    const completed = todoCompleted.reduce((acc, val) => val.completed ? acc+1 : acc,0)
 
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ function TodoFooter() {
     }
 
     function filterByStatus(status) {
-        dispatch(set_filter_status(status));
+        dispatch(set_filter_status({status:status}));
     }
 
     function toggleColorFilter(color){
@@ -49,7 +49,7 @@ function TodoFooter() {
 
             <div className="flex flex-col items-start space-y-2">
                 <h1 className="font-bold text-sm text-gray-600">Remaining Todos</h1>
-                <p className="text-gray-700">{completed} item{completed !== 1 ? 's' : ''} left</p>
+                <p className="text-gray-700">{completed} task{completed !== 1 ? 's' : ''} completed</p>
             </div>
 
             <div className="flex flex-col items-start space-y-2">

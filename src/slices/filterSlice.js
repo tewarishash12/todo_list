@@ -8,7 +8,7 @@ const filterSlice = createSlice({
     },
     reducers: {
         set_filter_status: (state,{payload}) =>{
-            state.status = payload;
+            state.status = payload.status;
         },
         set_filter_color: (state,{payload}) =>{
             state.colors = payload;
